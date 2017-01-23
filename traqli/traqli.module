@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Provide Traqli Service code integration.
+ */
+
+/**
+ * Implements hook_init().
+ */
+function traqli_init() {
+  global $theme;
+
+  if ($theme != variable_get('admin_theme')) {
+    $js = '(function(t) {var e = document.createElement("script");e.setAttribute("id", "' . variable_get('traqli_account', '') . '"), e.setAttribute("fusionId", t), e.type = "text/javascript", e.src = "//api.traq.li/public/sdk/v03/sdk.js", e.async = !0, document.getElementsByTagName("head")[0].appendChild(e)})
+ (236);';
+    if (!empty(variable_get('traqli_account'))) {
+      drupal_add_js($js, 'inline');
+    }
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function traqli_menu() {
+  $items = [];
+
+  $items['admin/config/user-interface/traqli'] = [
+    'title' => 'Traqli',
+    'description' => 'Traqli settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => ['traqli_settings'],
+    'access arguments' => ['administer traqli'],
+    'file' => 'traqli.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function traqli_permission() {
+  return [
+    'administer traqli' => [
+      'title' => t('Administer Traqli'),
+      'description' => t('Perform administration tasks for traqli.'),
+    ],
+  ];
+}

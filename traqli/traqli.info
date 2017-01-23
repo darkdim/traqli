@@ -1,0 +1,6 @@
+name = Traqli
+description = Integration traqli service code.
+package = Other
+core = 7.x
+
+configure = admin/config/user-interface/traqli
