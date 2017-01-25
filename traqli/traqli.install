@@ -10,4 +10,5 @@
  */
 function traqli_uninstall() {
   variable_del('traqli_account');
+  variable_del('traqli_integration_num');
 }

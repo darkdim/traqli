@@ -13,8 +13,8 @@ function traqli_init() {
 
   if ($theme != variable_get('admin_theme')) {
     $js = '(function(t) {var e = document.createElement("script");e.setAttribute("id", "' . variable_get('traqli_account', '') . '"), e.setAttribute("fusionId", t), e.type = "text/javascript", e.src = "//api.traq.li/public/sdk/v03/sdk.js", e.async = !0, document.getElementsByTagName("head")[0].appendChild(e)})
- (236);';
-    if (!empty(variable_get('traqli_account'))) {
+ (' . variable_get('traqli_integration_num', '') . ');';
+    if (!empty(variable_get('traqli_account')) || !empty(variable_get('traqli_integration_num'))) {
       drupal_add_js($js, 'inline');
     }
   }
